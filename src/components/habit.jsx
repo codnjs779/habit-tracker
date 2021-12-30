@@ -1,26 +1,17 @@
 import React, { Component } from "react";
 
 class Habit extends Component {
-    state = {
-        count: 0,
-    };
     handleIncrease = () => {
-        this.setState({
-            count: this.state.count + 1,
-        });
+        this.props.onIncrease(this.props.habit);
     };
     handleDecrease = () => {
-        const count = this.state.count - 1;
-        this.setState({
-            count: count < 0 ? 0 : count,
-        });
+        this.props.onDecrease(this.props.habit);
     };
     handleDelete = () => {
-        console.log("hello");
+        this.props.onDelete(this.props.habit);
     };
 
     render() {
-        console.log();
         const { name, count } = this.props.habit;
         return (
             <li className="habit">
