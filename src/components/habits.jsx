@@ -6,30 +6,15 @@ class Habits extends Component {
     // state move
 
     handleIncrease = (habit) => {
-        // 리액트에서state를 직접 수정하는 것은 옳은 방법이 아니다. 아래와 같이 복사해서 수정하는 방법이 좋은 방법!
-
-        const habits = [...this.props.state.habits];
-        const index = habits.indexOf(habit);
-        habits[index].count++;
-        this.setState({ habits: habits });
-        // 키와 값이 동일 할 때 생략가능
+        this.props.handleIncrease(habit);
     };
 
     handleDecrease = (habit) => {
-        const habits = [...this.props.state.habits];
-        const index = habits.indexOf(habit);
-
-        if (habit.count > 0) {
-            habits[index].count--;
-            this.setState({ habits });
-        }
-        return habit.count;
+        this.props.handleDecrease(habit);
     };
 
     handleDelete = (habit) => {
-        // habit으로 넘겨받은 id와 동일하지 않는 객체들로 새 배열을 만들기
-        const habits = this.props.state.habits.filter((item) => item.id !== habit.id);
-        this.setState({ habits });
+        this.props.handleDelete(habit);
     };
 
     render() {
