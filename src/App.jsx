@@ -1,8 +1,6 @@
 import "./App.css";
 import Habits from "./components/habits";
 import Nav from "./components/nav";
-import Input from "./components/input";
-import Reset from "./components/reset";
 import React, { Component } from "react";
 
 class App extends Component {
@@ -39,13 +37,38 @@ class App extends Component {
         this.setState({ habits });
         console.log("delete", habits);
     };
+
+    handleAdd = (name) => {
+        // 1. 항상 복사해줘야함 -> 복사 후 해당 obj를 배열에 추가 !! 핵심 핵심
+        // 2. 다음 단계로 setState를 이용해서 state를 업뎃 해줘야함
+        const habits = [...this.state.habits, { id: Date.now(), name, count: 0 }];
+        this.setState({ habits });
+    };
+
+    handleReset = () => {
+        const habits = this.state.habits.map((habit) => {
+            habit.count = 0;
+            return habit;
+        });
+        this.setState({ habits });
+    };
     render() {
         return (
             <>
                 <Nav totalCount={this.state.habits.filter((item) => item.count > 0).length} />
-                <Input />
-                <Habits state={this.state} handleIncrease={this.handleIncrease} handleDecrease={this.handleDecrease} handleDelete={this.handleDelete} />
-                <Reset />
+
+                <Habits
+                    state={this.state}
+                    handleIncrease={this.handleIncrease}
+                    handleDecrease={this.handleDecrease}
+                    handleDelete={this.handleDelete}
+                    onAdd={this.handleAdd}
+                    onReset={this.handleReset}
+                />
+
+                <button className="resetBtn" onClick={this.handleReset}>
+                    Reset All
+                </button>
             </>
         );
     }
