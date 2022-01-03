@@ -13,22 +13,26 @@ class App extends Component {
     };
 
     handleIncrease = (habit) => {
-        // 리액트에서state를 직접 수정하는 것은 옳은 방법이 아니다. 아래와 같이 복사해서 수정하는 방법이 좋은 방법!
-        const habits = [...this.state.habits];
-        const index = habits.indexOf(habit);
-        habits[index].count++;
+        const habits = this.state.habits.map((item) => {
+            if (item.id === habit.id) {
+                return { ...habit, count: habit.count + 1 };
+            }
+            return item;
+        });
+
         this.setState({ habits: habits });
     };
 
     handleDecrease = (habit) => {
-        const habits = [...this.state.habits];
-        const index = habits.indexOf(habit);
+        const habits = this.state.habits.map((item) => {
+            if (item.id === habit.id) {
+                const count = habit.count - 1;
+                return { ...habit, count: count < 0 ? 0 : count };
+            }
+            return item;
+        });
 
-        if (habit.count > 0) {
-            habits[index].count--;
-            this.setState({ habits });
-        }
-        return habit.count;
+        this.setState({ habits: habits });
     };
 
     handleDelete = (habit) => {
@@ -47,7 +51,10 @@ class App extends Component {
 
     handleReset = () => {
         const habits = this.state.habits.map((habit) => {
-            habit.count = 0;
+            if (habit.count !== 0) {
+                console.log("test");
+                return { ...habit, count: 0 };
+            }
             return habit;
         });
         this.setState({ habits });

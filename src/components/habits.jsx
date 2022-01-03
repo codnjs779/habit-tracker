@@ -22,6 +22,7 @@ class Habits extends Component {
     };
 
     render() {
+        console.log("habits");
         return (
             <>
                 <Input onAdd={this.handleAdd} />
