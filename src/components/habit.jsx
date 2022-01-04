@@ -1,6 +1,12 @@
 import React, { PureComponent } from "react";
 
 class Habit extends PureComponent {
+    componentDidUpdate() {
+        console.log("timer");
+    }
+    componentWillUnmount() {
+        console.log("timer제거");
+    }
     handleIncrease = () => {
         this.props.onIncrease(this.props.habit);
     };
