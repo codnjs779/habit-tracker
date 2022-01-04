@@ -1,13 +1,12 @@
-import React, { memo } from "react";
+import React, { memo, useRef } from "react";
 
-const Input = memo((props) => {
-    console.log("dd");
-    const inputRef = React.createRef();
+const Input = memo(({ onAdd }) => {
+    const inputRef = useRef();
 
     const onSubmit = (e) => {
         e.preventDefault();
         const name = inputRef.current.value;
-        name && props.onAdd(name);
+        name && onAdd(name);
         inputRef.current.value = "";
     };
     return (
