@@ -1,12 +1,14 @@
-import React, { useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 
 const SimpleHabit = () => {
     const [count, setCount] = useState(0);
     const spanRef = useRef();
-    const handleIncrement = () => {
+    const handleIncrement = useCallback(() => {
         setCount(count + 1);
-    };
-
+    });
+    useEffect(() => {
+        console.log("update", { count });
+    }, [count]);
     return (
         <li className="habit">
             <span ref={spanRef} className="habit-name">
